@@ -5,10 +5,21 @@ class Vec2
 	Vec2(num this.x, num this.y);
 	Vec2.zero() { x = 0.0; y = 0.0; }
 	
-	Vec2 operator+(Vec2 rhs) {
-		return new Vec2(x + rhs.x, y + rhs.y);
-	}
-
+	Vec2 operator+(Vec2 rhs) => new Vec2(x + rhs.x, y + rhs.y);
+	Vec2 operator-(Vec2 rhs) => new Vec2(x - rhs.x, y - rhs.y);
+	Vec2 operator*(num rhs) => new Vec2(x * rhs, y * rhs);
+	Vec2 operator/(num rhs) => new Vec2(x / rhs, y / rhs);
+	
+	bool operator==(Vec2 rhs) =>
+		Math.abs(rhs.x - x) < EPSILON && Math.abs(rhs.y - y) < EPSILON;
+	
+	num mag() => Math.sqrt(x*x + y*y);
+	num magsq() => x*x + y*y;
+	
+	num dot(rhs) => x*rhs.x + y*rhs.y;
+	
+	num normalized() { num mag = mag(); return new Vec2(x / mag, y / mag); }
+	
 	num x, y;
 }
 
