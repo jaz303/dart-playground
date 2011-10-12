@@ -16,6 +16,11 @@ class Response
     String get body() => _body;
     void set body(String b) => _body = b;
     
+    String _URI;
+    
+    String get URI() => _URI;
+           set URI(String u) => _URI = u;
+    
     void end() {
     
         StringBuffer buffer = new StringBuffer();
@@ -39,12 +44,12 @@ class Response
         if (_body !== null) {
             outBytes.copyFrom(_body.charCodes(), 0, buffer.length, _body.length);
         }
-    
         int totalWritten = 0;
         _socket.setWriteHandler(function() {
             int bytesWritten = _socket.writeList(outBytes, totalWritten, outBytes.length - totalWritten);
             totalWritten += bytesWritten;
-            if (totalWritten == outBytes.length) _socket.close();
+            print("KB sent for $URI: ${totalWritten / 1024}\n");
+            /*if (totalWritten == outBytes.length)*/ _socket.close();
         });
         
     }
