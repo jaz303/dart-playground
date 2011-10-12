@@ -16,10 +16,7 @@ class Response
     String get body() => _body;
     void set body(String b) => _body = b;
     
-    String _URI;
-    
-    String get URI() => _URI;
-           set URI(String u) => _URI = u;
+    String URI;
     
     void end() {
     
