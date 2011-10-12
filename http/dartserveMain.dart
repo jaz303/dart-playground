@@ -61,6 +61,7 @@ main() {
 	    }
 	    else //give a 404 error message for not-found files
 	    {
+	        response.status = 404;
 	        response.contentType = "text/plain"; //404 should always be plain text or html
 	        str = "Error 404:\n\nthe URL $reqs could not be found.\n\nWe're sorry! :(".charCodes();
         }
