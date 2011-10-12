@@ -13,6 +13,7 @@ class Vec2
 	Vec2.zero() : this(0, 0);
 	
 	// operator overloading for standard vector ops
+	// => syntax permits omission of { ... } and makes "return" implicit
 	
 	Vec2 operator+(Vec2 rhs) => new Vec2(x + rhs.x, y + rhs.y);
 	Vec2 operator-(Vec2 rhs) => new Vec2(x - rhs.x, y - rhs.y);
