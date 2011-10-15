@@ -1,15 +1,10 @@
 class Server
 {
     Server();
-
-    get address() => _address;
-    set address(a) => _address = a;
     
-    get port() => _port;
-    set port(p) => _port = p;
-    
-    get backlog() => _backlog;
-    set backlog(b) => _backlog = b;
+    String address;
+    int port;
+    int backlog;
     
     get requestHandler() => _requestHandler;
     set requestHandler(void callback(Request, Response)) => _requestHandler = callback;
@@ -19,7 +14,7 @@ class Server
         RegExp startMatch   = const RegExp(@"^([a-zA-Z]+)\s+([^\s]+)\s+HTTP/1.1$", false, false);
         RegExp headerMatch  = const RegExp(@"^([a-zA-Z0-9-]+):\s*([^$]+)$", false, false);
         
-        _server = new ServerSocket(_address, _port, _backlog);
+        _server = new ServerSocket(address, port, backlog);
         _server.setConnectionHandler(function() {
             
             Socket clientSocket     = _server.accept();
@@ -168,9 +163,6 @@ class Server
     
     String toString() => "http.Server(address=${this.address},port=${this.port})";
     
-    String _address         = "0.0.0.0";
-    int _port               = 8080;
-    int _backlog            = 10;
     var _requestHandler     = null;
     ServerSocket _server    = null;
 }
