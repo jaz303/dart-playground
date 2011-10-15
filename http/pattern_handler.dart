@@ -1,18 +1,18 @@
-class PatternHandler
+class PatternHandler implements Handler
 {
-    List<_Pattern> _patterns;
+    List<PatternTuple> _patterns;
     
     PatternHandler() {
-        _patterns = <_Pattern>[];
+        _patterns = <PatternTuple>[];
     }
     
     handlePattern(Pattern pattern, Function handler) {
-        _patterns.add(new _Pattern(pattern, handler));
+        _patterns.add(new PatternTuple(pattern, handler));
     }
     
-    toRequestHandler() {
+    Function toRequestHandler() {
         return (Request request, Response response) {
-            for (_Pattern p in _patterns) {
+            for (PatternTuple p in _patterns) {
                 var matches = p.pattern.allMatches(request.requestURI);
                 if (matches.length > 0) {
                     p.handler(request, matches[0], response);
@@ -23,9 +23,8 @@ class PatternHandler
     }
 }
 
-class _Pattern {
+class PatternTuple {
+    PatternTuple(Pattern this.pattern, Function this.handler);
     Pattern pattern;
     Function handler;
-    
-    _Pattern(Pattern this.pattern, Function this.handler);
 }
