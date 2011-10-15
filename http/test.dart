@@ -7,19 +7,22 @@ main() {
 	http.PatternHandler ph = new http.PatternHandler();
 	
 	ph.handlePattern("/foo",
-	    (http.Request _r, Match _m, http.Response r) => r.text("foo foo foo").end()
+	    (http.Request req, http.Response res) => res.text("foo foo foo").end()
 	);
 	
 	ph.handlePattern("/bar",
-	    (http.Request _r, Match _m, http.Response r) => r.text("bar bar bar").end()
+	    (http.Request req, http.Response res) => res.text("bar bar bar").end()
 	);
 	
 	ph.handlePattern(const RegExp(@"^/echo/(\w+)$"),
-	    (http.Request _r, Match m, http.Response r) => r.text("You said: ${m[1]}").end()
+	    (http.Request req, http.Response res) {
+	        String arg = req['PatternHandler.match'][1];
+	        res.text("You said: ${arg}").end();
+        }
 	);
 	
 	ph.handlePattern(const RegExp(@"^.*$"),
-	    (http.Request _, Match m, http.Response r) => r.textStatus(404).end()
+	    (http.Request req, http.Response res) => res.textStatus(404).end()
 	);
 	
 	server.requestHandler = ph;

@@ -15,7 +15,9 @@ class PatternHandler implements Handler
             for (PatternTuple p in _patterns) {
                 var matches = p.pattern.allMatches(request.requestURI);
                 if (matches.length > 0) {
-                    p.handler(request, matches[0], response);
+                    request['PatternHandler.matchingPattern'] = p.pattern;
+                    request['PatternHandler.match'] = matches[0];
+                    p.handler(request, response);
                     break;
                 }
             }
