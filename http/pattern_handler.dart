@@ -25,6 +25,6 @@ class PatternHandler implements Handler
 
 class PatternTuple {
     PatternTuple(Pattern this.pattern, Function this.handler);
-    Pattern pattern;
-    Function handler;
+    final Pattern pattern;
+    final Function handler;
 }
