@@ -15,8 +15,10 @@ class Server
     set requestHandler(thing) {
         if (thing is Function) { // TODO: is it possible to check param types?
             _requestHandler = thing;
-        } else {
+        } else if (thing is Handler) {
             _requestHandler = thing.toRequestHandler();
+        } else {
+            throw new IllegalArgumentException();
         }
     }
     
