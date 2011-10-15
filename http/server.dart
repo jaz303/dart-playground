@@ -2,12 +2,23 @@ class Server
 {
     Server();
     
-    String address;
-    int port;
-    int backlog;
+    String address          = "0.0.0.0";
+    int port                = 8080;
+    int backlog             = 10;
+    
+    var _requestHandler     = null;
+    ServerSocket _server    = null;
     
     get requestHandler() => _requestHandler;
-    set requestHandler(void callback(Request, Response)) => _requestHandler = callback;
+    
+    // TODO: this should probably store the original somewhere?
+    set requestHandler(thing) {
+        if (thing is Function) { // TODO: is it possible to check param types?
+            _requestHandler = thing;
+        } else {
+            _requestHandler = thing.toRequestHandler();
+        }
+    }
     
     void start() {
         
@@ -162,7 +173,5 @@ class Server
     }
     
     String toString() => "http.Server(address=${this.address},port=${this.port})";
-    
-    var _requestHandler     = null;
-    ServerSocket _server    = null;
+
 }
