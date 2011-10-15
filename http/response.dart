@@ -18,6 +18,36 @@ class Response
 
     String URI;
     
+    //
+    // Output Helpers
+    
+    // Set a simple HTML response
+    void html(String html) {
+        body = html;
+        contentType = "text/html";
+        return this;
+    }
+    
+    // Set a simple text response
+    void text(String text) {
+        body = text;
+        contentType = "text/plain";
+        return this;
+    }
+    
+    // Respond with a simple status code
+    void textStatus(int status) {
+        text("${status} ${Constants.textForStatus(status)}");
+        status = status;
+        return this;
+    }
+    
+    //
+    // Flush output
+    // TODO: handle many cases
+    // Should be possible to assign File to body, or a stream, or whatever,
+    // and send response efficiently.
+    
     void end() {
     
         StringBuffer buffer = new StringBuffer();
